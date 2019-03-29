@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, defaults: { format: :json }
-  resources :product_alerts
+  authenticate :user do
+    resources :product_alerts
+  end
+
   resources :products
 end
