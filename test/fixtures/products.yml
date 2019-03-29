@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  vendor: MyString
+  isbn: MyString
+  vendor_identifier: MyString
+  description: MyString
+  image_url: MyString
+  product_type: MyString
+
+two:
+  vendor: MyString
+  isbn: MyString
+  vendor_identifier: MyString
+  description: MyString
+  image_url: MyString
+  product_type: MyString

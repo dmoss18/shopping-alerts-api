@@ -1,0 +1,2 @@
+class ProductAlertsController < ApplicationController
+end
