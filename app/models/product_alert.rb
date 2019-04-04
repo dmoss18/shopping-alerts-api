@@ -1,4 +1,9 @@
 class ProductAlert < ApplicationRecord
+  belongs_to :user
+  belongs_to :product
+
+  validates :quantifier, :quantifier_type, :status, presence: true
+
   class Status
     include Ruby::Enum
 

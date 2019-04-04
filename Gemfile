@@ -9,7 +9,7 @@ gem 'pg'
 gem 'dotenv-rails'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
-gem 'active_model_serializers'
+gem 'jsonapi-rails'
 gem 'mechanize'
 gem 'monetize'
 gem 'ruby-enum'
