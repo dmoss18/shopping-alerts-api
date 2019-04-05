@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   deserializable_resource :product, only: [:create, :update]
-
+  
   # TODO: Delete the index endpoint in prod
   def index
     success Product.all
@@ -20,7 +20,13 @@ class ProductsController < ApplicationController
   end
 
   def search
-
+    result = SearchService.search(params[:url])
+    success result,
+            include: [:product],
+            class: {
+              :"SearchService::Result" => SerializableSearchResult,
+              :"Product" => SerializableProduct
+            }
   end
 
   private

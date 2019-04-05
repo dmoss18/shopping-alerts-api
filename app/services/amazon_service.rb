@@ -7,40 +7,62 @@ class AmazonService
     default: '//*[(@id = "price_inside_buybox")]'
   }.freeze
 
-  ASIN_REGEX = /\/dp\/(?<asin>[a-zA-Z0-9_]*)/.freeze
+  ASIN_REGEX = /\/(gp\/[product]+|dp)\/(?<asin>[a-zA-Z0-9_]*)/.freeze
 
   class << self
     def agent
       @agent ||= Mechanize.new
     end
 
-    def find_price_by(url: nil, asin: nil)
+    def search(url: nil, identifier: nil)
       if url
-        return find_price_by_url(url)
+        return search_by_url(url)
       else
-        return find_price_by_asin(asin)
+        return search_by_asin(identifier)
       end
     end
 
-    def find_price_by_url(url)
+    def search_by_url(url)
       asin = parse_asin(url)
-      find_price_by_asin(asin)
+      search_by_asin(asin)
     end
 
-    def find_price_by_asin(asin)
-      url =  "https://www.amazon.com/dp/#{asin}"
-      product = Product.find_by(vendor_identifier: asin)
+    def search_by_asin(asin)
+      url =  build_url(asin)
+      product = find_or_create_product(asin: asin)
       selectors = selectors_for(product)
+      result = SearchService::Result.new(product: product)
 
       page = agent.get(url)
       selectors.each do |selector|
         page.search(selector).each do |element|
           money = parse_price(element)
-          return money if money.present?
+          if money.present?
+            product.update(product_type: SELECTORS.key(selector))
+            result.money = money
+            return result
+          end
         end
       end
 
       nil
+    end
+
+    def find_or_create_product(asin:, url: nil, product_type: nil, description: nil)
+      product = Product.find_or_initialize_by(vendor_identifier: asin)
+      return product if product.persisted?
+
+      params = {
+        vendor_identifier: asin,
+        vendor: Product::Vendor::AMAZON,
+        url: url || build_url(asin),
+        description: description,
+        product_type: product_type
+      }.compact
+
+      product.update!(params)
+
+      product
     end
 
     def selectors_for(product)
@@ -53,6 +75,10 @@ class AmazonService
       match = ASIN_REGEX.match(url)
       return nil unless match
       match[:asin]
+    end
+
+    def build_url(asin)
+      "https://www.amazon.com/dp/#{asin}"
     end
 
     def parse_price(element)

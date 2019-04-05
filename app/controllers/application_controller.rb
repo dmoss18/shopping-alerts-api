@@ -13,7 +13,7 @@ class ApplicationController < ActionController::API
 
   def render_record_invalid(exception)
     # TODO: Should we render a 422 or a 200?
-    render_errors exception.record.errors, :unprocessable_entity)
+    render_errors exception.record.errors, :unprocessable_entity
   end
 
   protected

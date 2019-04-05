@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     # resources :product_alerts
   end
 
+  get '/products/search', to: 'products#search'
   resources :products
   resources :product_alerts
 end
