@@ -12,9 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2019_03_29_194715) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "product_alerts", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "user_id", null: false
