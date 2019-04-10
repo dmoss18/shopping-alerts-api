@@ -1,3 +1,17 @@
+GIT
+  remote: https://github.com/dmoss18/jsonapi-parser.git
+  revision: 7379bc1742c1c362da82357dfcf6fab877355f59
+  specs:
+    jsonapi-parser (0.1.2)
+
+GIT
+  remote: https://github.com/dmoss18/jsonapi-rails.git
+  revision: 6c45fc9755bdc417442fcb967f9f407ae3946253
+  specs:
+    jsonapi-rails (0.4.0)
+      jsonapi-parser (~> 0.1.2)
+      jsonapi-rb (~> 0.5.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -86,10 +100,6 @@ GEM
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     jsonapi-deserializable (0.2.0)
-    jsonapi-parser (0.1.1)
-    jsonapi-rails (0.4.0)
-      jsonapi-parser (~> 0.1.0)
-      jsonapi-rb (~> 0.5.0)
     jsonapi-rb (0.5.0)
       jsonapi-deserializable (~> 0.2.0)
       jsonapi-serializable (~> 0.3.0)
@@ -220,7 +230,8 @@ DEPENDENCIES
   byebug
   devise-jwt
   dotenv-rails
-  jsonapi-rails
+  jsonapi-parser!
+  jsonapi-rails!
   listen (>= 3.0.5, < 3.2)
   mechanize
   monetize

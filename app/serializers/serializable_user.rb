@@ -1,5 +1,5 @@
 class SerializableUser < JSONAPI::Serializable::Resource
-  type 'user'
+  type 'users'
 
   attributes :id, :email, :username
 end

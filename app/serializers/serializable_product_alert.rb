@@ -1,5 +1,5 @@
 class SerializableProductAlert < JSONAPI::Serializable::Resource
-  type 'product_alert'
+  type 'product_alerts'
 
   attributes :id, :product_id, :user_id
 

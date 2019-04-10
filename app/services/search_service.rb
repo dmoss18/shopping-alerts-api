@@ -10,6 +10,10 @@ class SearchService
     def id
       '' # For the serializable lib
     end
+
+    def valid?
+      product.present? && money.present? && money.amount > 0
+    end
   end
 
   class << self

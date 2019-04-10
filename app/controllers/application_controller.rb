@@ -16,6 +16,14 @@ class ApplicationController < ActionController::API
     render_errors exception.record.errors, :unprocessable_entity
   end
 
+  def current_user
+    return @user if @user
+    # TODO: Does devise-jwt not give us a better way to get the authenticated user?
+    token = Warden::JWTAuth::HeaderParser.from_env(request.headers.env)
+    payload = Warden::JWTAuth::TokenDecoder.new.call(token)
+    @user = Warden::JWTAuth::PayloadUserHelper.find_user(payload)
+  end
+
   protected
 
   def configure_permitted_parameters

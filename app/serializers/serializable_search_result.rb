@@ -1,5 +1,5 @@
 class SerializableSearchResult < JSONAPI::Serializable::Resource
-  type 'search_result'
+  type 'search_results'
 
   attribute :price do
     @object.money.amount
