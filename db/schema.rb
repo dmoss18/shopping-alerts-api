@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_29_194715) do
+ActiveRecord::Schema.define(version: 2019_04_11_021232) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "product_alerts", force: :cascade do |t|
     t.bigint "product_id", null: false
@@ -33,7 +36,7 @@ ActiveRecord::Schema.define(version: 2019_03_29_194715) do
     t.string "description"
     t.string "url", null: false
     t.string "image_url"
-    t.string "product_type"
+    t.string "selector"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["isbn"], name: "index_products_on_isbn"

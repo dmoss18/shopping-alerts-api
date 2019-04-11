@@ -1,12 +1,13 @@
 require 'mechanize'
 
 class AmazonService
-  SELECTORS = {
-    book: 'span.a-color-price.offer-price',
-    kindle: 'tr.kindle-price',
-    default: '#price_inside_buybox',
-    lightningDeal: '#priceblock_dealprice'
-  }.freeze
+  SELECTORS = [
+    'span.a-color-price.offer-price',
+    'tr.kindle-price',
+    '#price_inside_buybox',
+    '#priceblock_dealprice',
+    '#priceblock_ourprice'
+  ].freeze
 
   ASIN_REGEX = /\/(gp\/[product]+|dp)\/(?<asin>[a-zA-Z0-9_]*)/.freeze
 
@@ -46,7 +47,7 @@ class AmazonService
 
       # Hydrate product if needed
       params = {
-        product_type: SELECTORS.key(selector),
+        selector: selector,
         image_url: find_image_url(page),
         description: page.title  
       }
@@ -73,11 +74,10 @@ class AmazonService
     end
 
     def selectors_for(product)
-      return SELECTORS.values if product.nil? || product.product_type.nil?
-      selector = SELECTORS[product.product_type]
+      return SELECTORS if product.nil? || product.selector.nil?
       # Put product_type selector at front of list so we try that first
       # If it fails (page has changed), go through the other selectors
-      ([selector] | SELECTORS.values).compact.uniq
+      ([product.selector] | SELECTORS).compact.uniq
     end
 
     def parse_asin(url)
@@ -103,6 +103,8 @@ class AmazonService
           return [money, selector] if money.present?
         end
       end
+
+      nil
     end
 
     def parse_price(element)
