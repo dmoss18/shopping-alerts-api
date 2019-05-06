@@ -16,6 +16,8 @@ class AmazonService
   class << self
     def agent
       @agent ||= Mechanize.new
+      @agent.user_agent_alias = Mechanize::AGENT_ALIASES.keys.sample
+      @agent
     end
 
     def search(url: nil, identifier: nil)
@@ -91,9 +93,10 @@ class AmazonService
     end
 
     def find_image_url(page)
-      element = page.search('#landingImage').first
+      xpath = "//*[(@id = \"ebooksImgBlkFront\") or (@id = \"landingImage\")]"
+      element = page.search(xpath).first
       return nil unless element
-      element.attribute('src').try(:text)
+      element.attribute('src')&.(:text)
     end
 
     def find_price(page, product)
