@@ -96,7 +96,7 @@ class AmazonService
       xpath = "//*[(@id = \"ebooksImgBlkFront\") or (@id = \"landingImage\")]"
       element = page.search(xpath).first
       return nil unless element
-      element.attribute('src')&.(:text)
+      element.attribute('src')&.text
     end
 
     def find_price(page, product)
