@@ -16,7 +16,7 @@ class AmazonService
   class << self
     def agent
       @agent ||= Mechanize.new
-      @agent.user_agent_alias = Mechanize::AGENT_ALIASES.keys.sample
+      # @agent.user_agent_alias = Mechanize::AGENT_ALIASES.keys.sample
       @agent
     end
 

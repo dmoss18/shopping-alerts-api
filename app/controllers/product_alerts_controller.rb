@@ -1,5 +1,5 @@
 class ProductAlertsController < ApplicationController
-  deserializable_resource :product_alerts, only: [:create, :update]
+  deserializable_resource :product_alert, only: [:create, :update]
 
   def index
     success ProductAlert.where(user_id: current_user.id), include: [:product]
@@ -18,6 +18,6 @@ class ProductAlertsController < ApplicationController
   private
 
   def alert_params
-    params.require(:product_alerts).permit(:original_price, :quantifier, :quantifier_type, :product_id)
+    params.require(:product_alert).permit(:original_price, :quantifier, :quantifier_type, :product_id)
   end
 end
