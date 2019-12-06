@@ -8,7 +8,7 @@ gem 'rails', '~> 5.2.2', '>= 5.2.2.1'
 gem 'pg'
 gem 'dotenv-rails'
 # Use Puma as the app server
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 3.12'
 gem 'jsonapi-rails'#, git: 'https://github.com/dmoss18/jsonapi-rails.git'
 # gem 'jsonapi-parser', git: 'https://github.com/dmoss18/jsonapi-parser.git'
 gem 'mechanize'
